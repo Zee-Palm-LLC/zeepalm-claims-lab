@@ -1,0 +1,952 @@
+{
+  "_README": "Rules used by Claims Lab. Each rule maps wording patterns to a specific paragraph of 21 CFR 101.93 or 21 U.S.C. 343(r)(6). Patterns are case-insensitive regular expressions; a space matches any whitespace, and each pattern is wrapped in word boundaries unless boundaries is false. The fdaExample fields quote FDA's Small Entity Compliance Guide. These rules detect wording patterns: they are not a regulatory determination, and a sentence with no match is not cleared. Corrections welcome by pull request, with a citation.",
+  "sources": {
+    "cfr": {
+      "label": "21 CFR 101.93",
+      "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-101/subpart-F/section-101.93"
+    },
+    "guide": {
+      "label": "FDA Small Entity Compliance Guide on Structure/Function Claims",
+      "url": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/small-entity-compliance-guide-structurefunction-claims"
+    },
+    "usc": {
+      "label": "21 U.S.C. 343(r)(6)",
+      "url": "https://www.law.cornell.edu/uscode/text/21/343"
+    }
+  },
+  "criteria": {
+    "g1": {
+      "cite": "21 CFR 101.93(g)(1)",
+      "text": "Definition of disease — excludes diseases resulting from essential nutrient deficiencies (e.g. scurvy, pellagra)",
+      "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-101/subpart-F/section-101.93"
+    },
+    "g2i": {
+      "cite": "21 CFR 101.93(g)(2)(i)",
+      "text": "Has an effect on a specific disease or class of diseases",
+      "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-101/subpart-F/section-101.93"
+    },
+    "g2ii": {
+      "cite": "21 CFR 101.93(g)(2)(ii)",
+      "text": "Has an effect on the characteristic signs or symptoms of a specific disease or class of diseases",
+      "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-101/subpart-F/section-101.93"
+    },
+    "g2iii": {
+      "cite": "21 CFR 101.93(g)(2)(iii)",
+      "text": "Has an effect on an abnormal condition associated with a natural state or process",
+      "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-101/subpart-F/section-101.93"
+    },
+    "g2iv": {
+      "cite": "21 CFR 101.93(g)(2)(iv)",
+      "text": "Has an effect on a disease through the product name, formulation, citations, use of the term disease, or pictures",
+      "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-101/subpart-F/section-101.93"
+    },
+    "g2v": {
+      "cite": "21 CFR 101.93(g)(2)(v)",
+      "text": "Belongs to a class of products intended to diagnose, mitigate, treat, cure, or prevent a disease",
+      "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-101/subpart-F/section-101.93"
+    },
+    "g2vi": {
+      "cite": "21 CFR 101.93(g)(2)(vi)",
+      "text": "Is a substitute for a product that is a therapy for a disease",
+      "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-101/subpart-F/section-101.93"
+    },
+    "g2vii": {
+      "cite": "21 CFR 101.93(g)(2)(vii)",
+      "text": "Augments a particular therapy or drug action intended to diagnose, mitigate, treat, cure, or prevent a disease",
+      "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-101/subpart-F/section-101.93"
+    },
+    "g2viii": {
+      "cite": "21 CFR 101.93(g)(2)(viii)",
+      "text": "Has a role in the body's response to a disease or to a vector of disease",
+      "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-101/subpart-F/section-101.93"
+    },
+    "g2ix": {
+      "cite": "21 CFR 101.93(g)(2)(ix)",
+      "text": "Treats, prevents, or mitigates adverse events associated with a therapy for a disease",
+      "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-101/subpart-F/section-101.93"
+    },
+    "r6": {
+      "cite": "21 U.S.C. 343(r)(6)",
+      "text": "A structure/function statement may not claim to diagnose, mitigate, treat, cure, or prevent a specific disease or class of diseases",
+      "url": "https://www.law.cornell.edu/uscode/text/21/343"
+    },
+    "r6A": {
+      "cite": "21 U.S.C. 343(r)(6)(A)",
+      "text": "A benefit claim related to a classical nutrient deficiency disease must disclose the prevalence of that disease in the United States",
+      "url": "https://www.law.cornell.edu/uscode/text/21/343"
+    },
+    "r6B": {
+      "cite": "21 U.S.C. 343(r)(6)(B)",
+      "text": "The manufacturer must have substantiation that the statement is truthful and not misleading",
+      "url": "https://www.law.cornell.edu/uscode/text/21/343"
+    },
+    "c": {
+      "cite": "21 CFR 101.93(c)",
+      "text": "Required disclaimer for structure/function statements",
+      "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-101/subpart-F/section-101.93"
+    },
+    "a": {
+      "cite": "21 CFR 101.93(a)(1)",
+      "text": "FDA must be notified no later than 30 days after first marketing a product bearing the statement",
+      "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-101/subpart-F/section-101.93"
+    },
+    "f": {
+      "cite": "21 CFR 101.93(f)",
+      "text": "Structure/function statements are permitted only if they do not claim to diagnose, mitigate, treat, cure, or prevent disease",
+      "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-101/subpart-F/section-101.93"
+    }
+  },
+  "phraseVerbs": [
+    "treats",
+    "treat",
+    "treating",
+    "cures",
+    "cure",
+    "heals",
+    "heal",
+    "prevents",
+    "prevent",
+    "reduces",
+    "reduce",
+    "relieves",
+    "relieve",
+    "relief",
+    "lowers",
+    "lower",
+    "fights",
+    "fight",
+    "combats",
+    "combat",
+    "protects",
+    "protect",
+    "protective",
+    "reverses",
+    "reverse",
+    "eliminates",
+    "eliminate",
+    "alleviates",
+    "alleviate",
+    "eases",
+    "ease",
+    "manages",
+    "manage",
+    "improves",
+    "improve",
+    "supports",
+    "support",
+    "promotes",
+    "promote",
+    "helps",
+    "help",
+    "for",
+    "against",
+    "beats",
+    "beat",
+    "stops",
+    "stop"
+  ],
+  "generalStatement": "\\b(a |an )?(good|healthy|balanced|better|sensible) (diet|dietary|nutrition|eating)|\\bdiet and exercise\\b|\\bdietary and exercise\\b|\\bexercise and (a )?(healthy )?diet\\b",
+  "structureFunction": {
+    "patterns": [
+      "supports?",
+      "supporting",
+      "promotes?",
+      "promoting",
+      "maintains?",
+      "maintaining",
+      "helps? (to )?maintain",
+      "contributes? to",
+      "nourish(es)?",
+      "aids?",
+      "encourages?",
+      "enhances?",
+      "boosts?",
+      "fuels?",
+      "improves?",
+      "optimi[sz]es?",
+      "strengthens?",
+      "helps?",
+      "provides? (nutritional )?support",
+      "useful in providing",
+      "balances?"
+    ],
+    "reason": "Describes the role of a nutrient or ingredient in the body's normal structure or function — the kind of statement 21 CFR 101.93(f) permits, subject to the requirements below."
+  },
+  "disclaimer": {
+    "evaluated": "(this statement has|these statements have) not been evaluated by the food and drug administration",
+    "intended": "this product is not intended to diagnose,? treat,? cure,? (or|and) prevent any disease",
+    "singular": "This statement has not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.",
+    "plural": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease."
+  },
+  "notChecked": [
+    "Images, symbols and colours on the pack. FDA counts pictures, vignettes and symbols toward an implied disease claim under (g)(2)(iv); this tool reads text only.",
+    "Product names in context. Only names built around cure or an obvious condition are caught.",
+    "The catch-all criterion, (g)(2)(x) — anything that otherwise suggests an effect on disease.",
+    "Whether your substantiation is adequate.",
+    "Health claims and nutrient content claims, which follow separate rules in 21 CFR 101.14 and 101.13.",
+    "Advertising outside the label, which falls under the FTC.",
+    "Disclaimer placement and typography under 101.93(d) and (e) — only whether its wording is present.",
+    "Anything outside its word lists. A claim with no flags has not been cleared."
+  ],
+  "rules": [
+    {
+      "id": "disease-cancer",
+      "tier": "disease",
+      "criterion": "g2i",
+      "patterns": [
+        "cancers?",
+        "tumou?rs?",
+        "carcinomas?",
+        "leukemia",
+        "lymphoma",
+        "melanoma"
+      ],
+      "reason": "Names a specific disease.",
+      "fdaExample": "protective against the development of cancer",
+      "noRewrite": "There is no structure/function version of a claim about this condition. Remove the reference.",
+      "priority": 30
+    },
+    {
+      "id": "disease-diabetes",
+      "tier": "disease",
+      "criterion": "g2i",
+      "patterns": [
+        "pre-?diabetes",
+        "diabetes",
+        "diabetic"
+      ],
+      "reason": "Names a specific disease.",
+      "rewrite": "Supports healthy glucose metabolism already within a normal range",
+      "priority": 30
+    },
+    {
+      "id": "disease-arthritis",
+      "tier": "disease",
+      "criterion": "g2i",
+      "patterns": [
+        "rheumatoid arthritis",
+        "osteoarthritis",
+        "arthritis",
+        "rheumatoid"
+      ],
+      "reason": "Names a specific disease.",
+      "rewrite": "Supports joint comfort and mobility",
+      "fdaExample": "reduces the pain and stiffness associated with arthritis",
+      "priority": 30
+    },
+    {
+      "id": "disease-bone",
+      "tier": "disease",
+      "criterion": "g2i",
+      "patterns": [
+        "osteoporosis",
+        "osteopenia"
+      ],
+      "reason": "Names a specific disease.",
+      "rewrite": "Supports bone health",
+      "priority": 30
+    },
+    {
+      "id": "disease-dementia",
+      "tier": "disease",
+      "criterion": "g2i",
+      "patterns": [
+        "alzheimer['’]?s disease",
+        "alzheimer['’]?s",
+        "senile dementias?",
+        "dementias?",
+        "parkinson['’]?s"
+      ],
+      "reason": "Names a specific disease.",
+      "rewrite": "Supports memory",
+      "fdaExample": "Alzheimer's disease or senile dementias in the elderly",
+      "priority": 30
+    },
+    {
+      "id": "disease-cardio",
+      "tier": "disease",
+      "criterion": "g2i",
+      "patterns": [
+        "coronary artery disease",
+        "cardiovascular disease",
+        "heart disease",
+        "heart attacks?",
+        "strokes?",
+        "angina",
+        "atherosclerosis",
+        "arrhythmias?",
+        "hypertension",
+        "high blood pressure"
+      ],
+      "reason": "Names a specific disease.",
+      "rewrite": "Supports heart health",
+      "fdaExample": "relieves crushing chest pain (angina)",
+      "priority": 30
+    },
+    {
+      "id": "disease-respiratory",
+      "tier": "disease",
+      "criterion": "g2i",
+      "patterns": [
+        "asthma",
+        "bronchospasms?",
+        "copd",
+        "bronchitis",
+        "pneumonia"
+      ],
+      "reason": "Names a specific disease.",
+      "rewrite": "Supports respiratory health",
+      "fdaExample": "relief of bronchospasm (asthma)",
+      "priority": 30
+    },
+    {
+      "id": "disease-mental",
+      "tier": "disease",
+      "criterion": "g2i",
+      "patterns": [
+        "major depressive disorder",
+        "clinical depression",
+        "depression",
+        "depressive",
+        "anxiety disorders?",
+        "generalized anxiety",
+        "panic disorder",
+        "panic attacks?",
+        "adhd",
+        "autism",
+        "bipolar",
+        "schizophrenia",
+        "ptsd",
+        "ocd"
+      ],
+      "reason": "Names a specific disease.",
+      "rewrite": "Supports a positive mood",
+      "priority": 30
+    },
+    {
+      "id": "disease-sleep",
+      "tier": "disease",
+      "criterion": "g2i",
+      "patterns": [
+        "insomnia",
+        "sleep disorders?",
+        "sleep apnea",
+        "narcolepsy"
+      ],
+      "reason": "Names a specific disease. FDA accepts claims about occasional sleeplessness, but insomnia is a disorder.",
+      "rewrite": "Supports restful sleep",
+      "priority": 30
+    },
+    {
+      "id": "disease-metabolic",
+      "tier": "disease",
+      "criterion": "g2i",
+      "patterns": [
+        "obesity",
+        "obese",
+        "metabolic syndrome",
+        "hypothyroidism",
+        "hyperthyroidism"
+      ],
+      "reason": "Names a specific disease.",
+      "rewrite": "Supports weight management as part of a diet and exercise program",
+      "priority": 30
+    },
+    {
+      "id": "disease-infectious",
+      "tier": "disease",
+      "criterion": "g2i",
+      "patterns": [
+        "covid-?19",
+        "covid",
+        "coronavirus",
+        "influenza",
+        "the flu",
+        "common colds?",
+        "colds",
+        "shingles",
+        "herpes",
+        "hiv",
+        "hepatitis",
+        "urinary tract infections?",
+        "utis?",
+        "yeast infections?",
+        "candidiasis",
+        "lyme disease"
+      ],
+      "reason": "Names a specific disease.",
+      "rewrite": "Supports the immune system",
+      "priority": 30
+    },
+    {
+      "id": "disease-organ",
+      "tier": "disease",
+      "criterion": "g2i",
+      "patterns": [
+        "fatty liver disease",
+        "cirrhosis",
+        "kidney disease",
+        "kidney stones",
+        "gallstones",
+        "gout"
+      ],
+      "reason": "Names a specific disease.",
+      "noRewrite": "There is no structure/function version of a claim about this condition. Remove the reference.",
+      "priority": 30
+    },
+    {
+      "id": "disease-gi",
+      "tier": "disease",
+      "criterion": "g2i",
+      "patterns": [
+        "irritable bowel syndrome",
+        "ibs",
+        "crohn['’]?s disease",
+        "crohn['’]?s",
+        "ulcerative colitis",
+        "colitis",
+        "ulcers?",
+        "gerd",
+        "acid reflux disease"
+      ],
+      "reason": "Names a specific disease.",
+      "rewrite": "Supports digestive health",
+      "priority": 30
+    },
+    {
+      "id": "disease-neuro",
+      "tier": "disease",
+      "criterion": "g2i",
+      "patterns": [
+        "multiple sclerosis",
+        "epilepsy",
+        "seizures?",
+        "migraines?",
+        "fibromyalgia",
+        "lupus",
+        "neuropathy",
+        "chronic fatigue syndrome",
+        "carpal tunnel( syndrome)?"
+      ],
+      "reason": "Names a specific disease.",
+      "noRewrite": "There is no structure/function version of a claim about this condition. Remove the reference.",
+      "priority": 30
+    },
+    {
+      "id": "disease-skin",
+      "tier": "disease",
+      "criterion": "g2i",
+      "patterns": [
+        "psoriasis",
+        "eczema",
+        "rosacea",
+        "dermatitis"
+      ],
+      "reason": "Names a specific disease.",
+      "rewrite": "Supports healthy-looking skin",
+      "priority": 30
+    },
+    {
+      "id": "disease-eye",
+      "tier": "disease",
+      "criterion": "g2i",
+      "patterns": [
+        "macular degeneration",
+        "glaucoma",
+        "cataracts?"
+      ],
+      "reason": "Names a specific disease.",
+      "rewrite": "Supports eye health",
+      "priority": 30
+    },
+    {
+      "id": "disease-sexual",
+      "tier": "disease",
+      "criterion": "g2i",
+      "patterns": [
+        "erectile dysfunction",
+        "impotence",
+        "hypogonadism",
+        "infertility"
+      ],
+      "reason": "Names a specific disease.",
+      "rewrite": "Supports sexual health",
+      "priority": 30
+    },
+    {
+      "id": "symptom-lower-cholesterol",
+      "tier": "disease",
+      "criterion": "g2ii",
+      "patterns": [
+        "(lowers?|lowering|reduces?|reducing|decreases?|cuts?|drops?) (your |high |elevated |bad )?(ldl |ldl-)?(cholesterol|triglycerides)"
+      ],
+      "reason": "Lowering cholesterol is a characteristic effect on disease. FDA treats \"reduces cholesterol\" as a disease claim.",
+      "rewrite": "Supports cholesterol levels already within a normal range",
+      "fdaExample": "maintain cholesterol levels that are already in the normal range (acceptable) vs reduces cholesterol (disease claim)",
+      "phraseFromMatch": true,
+      "priority": 30
+    },
+    {
+      "id": "symptom-lower-bp",
+      "tier": "disease",
+      "criterion": "g2ii",
+      "patterns": [
+        "(lowers?|lowering|reduces?|reducing|decreases?|cuts?|drops?) (your |high |elevated )?blood pressure"
+      ],
+      "reason": "Lowering blood pressure is a characteristic effect on disease.",
+      "rewrite": "Supports blood pressure already within a normal range",
+      "phraseFromMatch": true,
+      "priority": 30
+    },
+    {
+      "id": "symptom-lower-glucose",
+      "tier": "disease",
+      "criterion": "g2ii",
+      "patterns": [
+        "(lowers?|lowering|reduces?|reducing|decreases?|cuts?|drops?) (your |high |elevated )?(blood sugar|blood glucose|glucose levels|a1c|hba1c)"
+      ],
+      "reason": "Lowering blood sugar is a characteristic effect on disease.",
+      "rewrite": "Supports healthy glucose metabolism already within a normal range",
+      "phraseFromMatch": true,
+      "priority": 30
+    },
+    {
+      "id": "symptom-platelet",
+      "tier": "disease",
+      "criterion": "g2ii",
+      "patterns": [
+        "inhibits platelet aggregation",
+        "platelet aggregation",
+        "thins? (your )?blood",
+        "blood thinner",
+        "prevents? blood clots?",
+        "blood clots?"
+      ],
+      "reason": "An effect so closely tied to disease that FDA treats any claim about it as a disease claim.",
+      "fdaExample": "inhibits platelet aggregation",
+      "noRewrite": "There is no structure/function version of a claim about this condition. Remove the reference.",
+      "priority": 30
+    },
+    {
+      "id": "symptom-regulate-marker",
+      "tier": "review",
+      "criterion": "g2ii",
+      "patterns": [
+        "(regulates?|regulating|controls?|controlling|normali[sz]es?|balances?|balancing|stabili[sz]es?) (your )?(blood sugar|blood glucose|glucose|blood pressure|cholesterol)"
+      ],
+      "reason": "Regulating or controlling a disease marker can imply correcting an abnormal level. Tie it to levels already in the normal range.",
+      "rewrite": "Supports healthy levels already within a normal range",
+      "phraseFromMatch": true,
+      "priority": 20
+    },
+    {
+      "id": "symptom-anxiety",
+      "tier": "review",
+      "criterion": "g2ii",
+      "patterns": [
+        "((reduces?|relieves?|eases?|calms?|treats?|fights?|combats?|lowers?|soothes?|stops?) )?(your )?anxiety"
+      ],
+      "reason": "\"Anxiety\" can describe a diagnosable disorder. FDA has accepted \"relieves stress and frustration\" as a structure/function claim; wording about anxiety is likely to be read as a disease claim.",
+      "rewrite": "Relieves occasional stress",
+      "fdaExample": "relieves stress and frustration (acceptable)",
+      "phraseFromMatch": true,
+      "priority": 20
+    },
+    {
+      "id": "symptom-inflammation",
+      "tier": "review",
+      "criterion": "g2ii",
+      "patterns": [
+        "((reduces?|lowers?|fights?|relieves?|eliminates?|combats?|calms?|stops?) )?(chronic |systemic )?inflammation"
+      ],
+      "reason": "Inflammation is a common sign of disease. FDA's example \"reduces inflammation (rheumatoid arthritis)\" is a disease claim.",
+      "rewrite": "Supports a healthy inflammatory response",
+      "fdaExample": "improves joint mobility and reduces inflammation (rheumatoid arthritis)",
+      "phraseFromMatch": true,
+      "priority": 20
+    },
+    {
+      "id": "symptom-pain",
+      "tier": "review",
+      "criterion": "g2ii",
+      "patterns": [
+        "(relieves?|relief (of|from)|reduces?|eliminates?|kills?|stops?|ends?|eases?|soothes?)( [a-z]+){0,2} (pain|headaches?)",
+        "pain relief",
+        "pain[- ]relieving",
+        "joint pain",
+        "chronic pain"
+      ],
+      "reason": "Pain relief reads as an analgesic effect, and pain is a characteristic sign of many diseases.",
+      "rewrite": "Supports recovery from occasional muscle soreness after exercise",
+      "phraseFromMatch": true,
+      "priority": 20
+    },
+    {
+      "id": "symptom-sleeplessness",
+      "tier": "review",
+      "criterion": "g2ii",
+      "patterns": [
+        "sleeplessness"
+      ],
+      "reason": "FDA accepts claims about occasional sleeplessness, but not persistent sleeplessness, which reads as insomnia.",
+      "rewrite": "Helps with occasional sleeplessness",
+      "unless": "occasional",
+      "priority": 20
+    },
+    {
+      "id": "symptom-lowt",
+      "tier": "review",
+      "criterion": "g2ii",
+      "patterns": [
+        "low testosterone",
+        "low t"
+      ],
+      "reason": "Clinically low testosterone is a medical condition.",
+      "rewrite": "Supports healthy testosterone levels already within a normal range",
+      "priority": 20
+    },
+    {
+      "id": "natural-cystic-acne",
+      "tier": "disease",
+      "criterion": "g2iii",
+      "patterns": [
+        "(?<!non-)cystic acne"
+      ],
+      "reason": "FDA gives cystic acne as an abnormal condition — a disease claim. Noncystic acne is acceptable.",
+      "rewrite": "Helps with occasional mild (noncystic) acne",
+      "fdaExample": "cystic acne (disease) vs noncystic acne (acceptable)",
+      "priority": 30
+    },
+    {
+      "id": "natural-pmdd",
+      "tier": "disease",
+      "criterion": "g2iii",
+      "patterns": [
+        "premenstrual dysphoric disorder",
+        "pmdd",
+        "hyperemesis gravidarum",
+        "postpartum depression"
+      ],
+      "reason": "An abnormal condition associated with a natural state.",
+      "noRewrite": "There is no structure/function version of a claim about this condition. Remove the reference.",
+      "priority": 30
+    },
+    {
+      "id": "natural-memory",
+      "tier": "review",
+      "criterion": "g2iii",
+      "patterns": [
+        "memory loss",
+        "cognitive decline"
+      ],
+      "reason": "FDA accepts \"mild memory loss associated with aging\" but not claims about serious cognitive impairment.",
+      "rewrite": "Helps with mild memory loss associated with aging",
+      "fdaExample": "mild memory loss associated with aging (acceptable)",
+      "unless": "\\bmild\\b",
+      "priority": 20
+    },
+    {
+      "id": "natural-severe",
+      "tier": "review",
+      "criterion": "g2iii",
+      "patterns": [
+        "(severe|debilitating|chronic) (acne|cramps|mood changes|pms|hot flashes|fatigue|constipation|heartburn)"
+      ],
+      "reason": "Severity language can turn a normal condition into an abnormal one. FDA accepts mild conditions associated with natural states.",
+      "rewrite": "Use \"mild\" or \"occasional\" and tie it to the natural state",
+      "priority": 20
+    },
+    {
+      "id": "term-disease",
+      "tier": "disease",
+      "criterion": "g2iv",
+      "patterns": [
+        "diseases?",
+        "diseased"
+      ],
+      "reason": "Uses the word disease about the product's effect.",
+      "fdaExample": "Promotes good health and prevents the onset of disease",
+      "suppressInGeneralStatement": true,
+      "noRewrite": "Remove the reference to disease. General statements like \"a good diet promotes good health\" are acceptable because they aren't about the product.",
+      "priority": 30
+    },
+    {
+      "id": "name-cure",
+      "tier": "disease",
+      "criterion": "g2iv",
+      "patterns": [
+        "[A-Z][a-z]+Cure",
+        "[A-Z][a-z]+Cures"
+      ],
+      "reason": "A product name built around \"cure\" implies a disease claim.",
+      "fdaExample": "CircuCure",
+      "caseSensitive": true,
+      "noRewrite": "Rename the product without cure, treat, correct or prevent.",
+      "priority": 30
+    },
+    {
+      "id": "name-carpal",
+      "tier": "disease",
+      "criterion": "g2iv",
+      "patterns": [
+        "Carpal[A-Z][a-z]+"
+      ],
+      "reason": "A product name that evokes a disease implies a disease claim.",
+      "fdaExample": "CarpalHealth",
+      "caseSensitive": true,
+      "noRewrite": "Rename the product without reference to the condition.",
+      "priority": 30
+    },
+    {
+      "id": "formulation-drug",
+      "tier": "disease",
+      "criterion": "g2iv",
+      "patterns": [
+        "aspirin",
+        "ibuprofen",
+        "acetaminophen",
+        "paracetamol",
+        "naproxen",
+        "digoxin",
+        "metformin",
+        "atorvastatin",
+        "warfarin",
+        "penicillin"
+      ],
+      "reason": "References an ingredient regulated as a drug and known for treating disease.",
+      "fdaExample": "listing aspirin or digoxin as an ingredient",
+      "unless": "deplet|replenish",
+      "noRewrite": "There is no structure/function version of a claim about this condition. Remove the reference.",
+      "priority": 30
+    },
+    {
+      "id": "formulation-rx",
+      "tier": "review",
+      "criterion": "g2iv",
+      "patterns": [
+        "℞",
+        "rx"
+      ],
+      "reason": "The Rx symbol is not automatically a disease claim, but FDA says it may misbrand the product if the context suggests a prescription drug.",
+      "caseSensitive": true,
+      "boundaries": false,
+      "noRewrite": "Remove the Rx symbol unless the context is clearly unrelated to prescription drugs.",
+      "priority": 20
+    },
+    {
+      "id": "class-drug",
+      "tier": "disease",
+      "criterion": "g2v",
+      "patterns": [
+        "analgesics?",
+        "antibiotics?",
+        "antidepressants?",
+        "antimicrobials?",
+        "antiseptics?",
+        "antivirals?",
+        "antifungals?",
+        "antibacterials?",
+        "vaccines?",
+        "anticoagulants?",
+        "antihistamines?",
+        "anticonvulsants?",
+        "antipsychotics?",
+        "painkillers?",
+        "pain relievers?",
+        "anti-anxiety"
+      ],
+      "reason": "Names a class of products that treat or prevent disease.",
+      "fdaExample": "analgesic, antibiotic, antidepressant, antimicrobial, antiseptic, antiviral, vaccine",
+      "unless": "deplet|replenish",
+      "noRewrite": "Remove the drug-class term. Describe the structure or function the product supports instead.",
+      "priority": 30
+    },
+    {
+      "id": "class-diuretic",
+      "tier": "review",
+      "criterion": "g2v",
+      "patterns": [
+        "diuretics?",
+        "laxatives?",
+        "anti-inflammatory",
+        "sedatives?"
+      ],
+      "reason": "A drug-like class term. FDA accepts \"diuretic that relieves temporary water-weight gain\" because the context is clearly structure/function.",
+      "rewrite": "Tie the term explicitly to a normal, temporary effect",
+      "fdaExample": "diuretic that relieves temporary water-weight gain (acceptable)",
+      "unless": "water[- ]?weight|temporary",
+      "priority": 20
+    },
+    {
+      "id": "substitute-therapy",
+      "tier": "disease",
+      "criterion": "g2vi",
+      "patterns": [
+        "(alternative to|instead of|replacement for|substitute for|replaces?|better than|as effective as|works like)( [a-z]+){0,2} (prescriptions?|medications?|meds|drugs?|pills|antidepressants?|statins?|ssris?|sleeping pills|painkillers|chemotherapy|chemo|aspirin|ibuprofen|acetaminophen|paracetamol|naproxen|digoxin|metformin|atorvastatin|warfarin|prozac|xanax|viagra|cialis|valium|ambien|adderall|zoloft|lexapro|ozempic|wegovy|mounjaro|lipitor|celebrex)",
+        "no (more )?need for( [a-z]+){0,1} (medications?|prescriptions?|drugs|meds)",
+        "nature['’]?s (prozac|xanax|viagra|valium|ambien|adderall|aspirin|ibuprofen|ozempic|wegovy|metformin)"
+      ],
+      "reason": "Positions the product as a replacement for a therapy that treats disease.",
+      "fdaExample": "claims that a product substitutes for a disease therapy",
+      "phraseFromMatch": true,
+      "noRewrite": "Remove the comparison to a drug or therapy.",
+      "priority": 30
+    },
+    {
+      "id": "substitute-brand",
+      "tier": "disease",
+      "criterion": "g2vi",
+      "patterns": [
+        "prozac",
+        "xanax",
+        "viagra",
+        "cialis",
+        "valium",
+        "ambien",
+        "adderall",
+        "zoloft",
+        "lexapro",
+        "ozempic",
+        "wegovy",
+        "mounjaro",
+        "lipitor",
+        "celebrex"
+      ],
+      "reason": "Names a prescription drug, implying the product substitutes for it.",
+      "unless": "deplet|replenish",
+      "noRewrite": "Remove the reference to the drug.",
+      "priority": 30
+    },
+    {
+      "id": "augment-therapy",
+      "tier": "disease",
+      "criterion": "g2vii",
+      "patterns": [
+        "(works with|enhances|boosts|amplifies|complements|increases the effect of|improves the effect of)( the (effects?|action) of)?( your)? (medications?|prescriptions?|chemotherapy|chemo|radiation( therapy)?|statins?|antidepressants?|drug therapy|cancer treatment)",
+        "(during|alongside|while on|while undergoing|while taking) (chemotherapy|chemo|radiation( therapy)?|cancer treatment|dialysis)"
+      ],
+      "reason": "Claims to augment a therapy intended to treat disease.",
+      "fdaExample": "useful in providing nutritional support (acceptable, because it does not mention the therapy)",
+      "phraseFromMatch": true,
+      "noRewrite": "Remove the reference to the therapy.",
+      "priority": 30
+    },
+    {
+      "id": "response-infection",
+      "tier": "disease",
+      "criterion": "g2viii",
+      "patterns": [
+        "(resists?|resist|fights?|fighting|combats?|wards? off|protects? against|defends? against)( off)?( the)? (infections?|viruses|virus|germs|bacteria|pathogens|colds?|flu)",
+        "(body['’]?s )?ability to resist infections?",
+        "antiviral (capabilities|properties|activity|defen[cs]es?)",
+        "kills? (viruses|virus|germs|bacteria|pathogens)",
+        "immun(e|ity) (system )?(against|to) (colds?|flu|viruses|covid)"
+      ],
+      "reason": "Describes a role in the body's response to disease or a disease vector. FDA accepts \"supports the immune system\" because it is not specific to disease.",
+      "rewrite": "Supports the immune system",
+      "fdaExample": "supports the body's ability to resist infection (disease claim) vs supports the immune system (acceptable)",
+      "phraseFromMatch": true,
+      "priority": 30
+    },
+    {
+      "id": "response-season",
+      "tier": "review",
+      "criterion": "g2viii",
+      "patterns": [
+        "(cold and flu|cold|flu) season"
+      ],
+      "reason": "Tying immune support to cold or flu season implies preventing those diseases.",
+      "rewrite": "Supports the immune system",
+      "priority": 20
+    },
+    {
+      "id": "adverse-therapy",
+      "tier": "disease",
+      "criterion": "g2ix",
+      "patterns": [
+        "(people|those|anyone|patients|adults) (on|taking|undergoing)( [a-z]+){0,1} (antibiotics|chemotherapy|chemo|statins|medications?)",
+        "(after|following|during)( a)?( course of)? antibiotics",
+        "side[- ]effects? (of|from)( [a-z]+){0,2} (chemotherapy|chemo|radiation|antibiotics|medications?|statins?|drugs?)"
+      ],
+      "reason": "Claims to mitigate adverse effects of a therapy for disease. FDA does accept counterbalancing nutrient depletion caused by a drug.",
+      "fdaExample": "to maintain the intestinal flora in people on antibiotics",
+      "unless": "deplet|replenish",
+      "phraseFromMatch": true,
+      "noRewrite": "If the product counterbalances a nutrient depleted by a drug, say that specifically. Otherwise remove the reference.",
+      "priority": 30
+    },
+    {
+      "id": "verb-treat-cure",
+      "tier": "review",
+      "criterion": "r6",
+      "patterns": [
+        "treats?(?![- ]?free)",
+        "treating(?![- ]?free)",
+        "treatment(?![- ]?free)",
+        "cures?(?![- ]?free)",
+        "curing(?![- ]?free)",
+        "heals?(?![- ]?free)",
+        "healing(?![- ]?free)",
+        "mitigates?(?![- ]?free)",
+        "diagnoses?(?![- ]?free)"
+      ],
+      "reason": "Drug language. The statute bars structure/function statements from claiming to diagnose, mitigate, treat, cure or prevent disease; FDA notes these words can create an implied disease claim depending on context.",
+      "contextVerb": true,
+      "suppressInGeneralStatement": true,
+      "unless": "scurvy|pellagra|rickets|beriberi",
+      "noRewrite": "Replace with structure/function language such as supports, maintains or promotes.",
+      "priority": 20
+    },
+    {
+      "id": "verb-prevent",
+      "tier": "review",
+      "criterion": "r6",
+      "patterns": [
+        "prevents?",
+        "preventing",
+        "prevention",
+        "reverses?",
+        "reversing"
+      ],
+      "reason": "FDA lists \"prevent\" among words that may create an implied disease claim depending on context.",
+      "contextVerb": true,
+      "suppressInGeneralStatement": true,
+      "unless": "scurvy|pellagra|rickets|beriberi",
+      "noRewrite": "Replace with structure/function language such as supports or maintains.",
+      "priority": 20
+    },
+    {
+      "id": "deficiency-classical",
+      "tier": "deficiency",
+      "criterion": "g1",
+      "patterns": [
+        "scurvy",
+        "pellagra",
+        "rickets",
+        "beriberi"
+      ],
+      "reason": "A classical nutrient deficiency disease is excluded from the definition of disease, so a claim about it is not a disease claim. It must disclose how prevalent the disease is in the United States.",
+      "secondary": "r6A",
+      "noRewrite": "Keep the claim and add the U.S. prevalence disclosure.",
+      "priority": 25
+    },
+    {
+      "id": "sub-proven",
+      "tier": "substantiation",
+      "criterion": "r6B",
+      "patterns": [
+        "clinically (proven|tested|studied|shown)",
+        "scientifically (proven|tested)",
+        "proven to",
+        "research[- ](backed|proven)",
+        "studies (show|prove)",
+        "(doctor|physician)[- ]recommended",
+        "guaranteed( results| to)?",
+        "100% effective"
+      ],
+      "reason": "Makes a specific evidentiary promise. Every structure/function claim needs substantiation before it is made; wording like this raises what that substantiation has to support.",
+      "noRewrite": "Keep only if your evidence supports this exact wording.",
+      "priority": 10
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "zeepalm-claims-lab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Paste supplement marketing copy. See exactly which rule each claim triggers under 21 CFR 101.93.",
+  "scripts": {
+    "test": "node test/fda-examples.test.mjs",
+    "dev": "python3 -m http.server 8000"
+  },
+  "license": "MIT",
+  "author": "Zee Palm (https://zeepalm.com)",
+  "homepage": "https://zeepalm.com"
+}
