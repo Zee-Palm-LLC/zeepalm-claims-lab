@@ -3,231 +3,306 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Claims Lab — see exactly which rule a supplement claim triggers</title>
-<meta name="description" content="Paste supplement marketing copy. See which wording crosses from a structure/function claim into a disease claim, and the exact paragraph of 21 CFR 101.93 it maps to. Rule-based, open source, runs in your browser.">
-<meta name="color-scheme" content="dark">
-<meta name="theme-color" content="#060810">
+<title>Claims Lab — find the supplement claims that cross the line</title>
+<meta name="description" content="Paste supplement label or ad copy. See which wording FDA treats as a disease claim, the exact paragraph of 21 CFR 101.93 it maps to, and structure/function wording to use instead. Rule-based, open source, runs in your browser.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#F8F8F7">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Zee Palm Labs">
 <meta property="og:title" content="Claims Lab">
-<meta property="og:description" content="Paste a supplement claim. See exactly which rule it triggers.">
+<meta property="og:description" content="Find the supplement claims that cross the line — with the exact FDA rule for each.">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>§</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%23111113'/><text x='32' y='46' font-size='40' text-anchor='middle' fill='white' font-family='Georgia'>§</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
 <style>
 :root{
-  --bg:#060810; --panel:#0A0E18; --panel2:#111826; --panel3:#161E2E;
-  --txt:#EDF2F9; --txt2:#94A2B8; --txt3:#5D6A7E;
-  --edge:rgba(255,255,255,.085); --edge2:rgba(255,255,255,.16);
-  --cy:#7FD8F5;
-  --dis:#FF4F63; --rev:#F5B759; --sf:#4BDCA6; --sub:#7FD8F5; --def:#B9A7FF;
-  --ui:"Sora",-apple-system,"Segoe UI",sans-serif;
-  --mo:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --bg:#F8F8F7; --surface:#FFFFFF; --sunken:#F3F3F1;
+  --line:#E8E8E5; --line-2:#DADAD6;
+  --ink:#111113; --ink-2:#4A4A52; --ink-3:#86868E; --ink-4:#B4B4BA;
+  --dis:#D92D20; --rev:#C4690A;
+  --font:"Geist","Inter",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"Geist Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --shadow:0 1px 2px rgba(17,17,19,.04),0 4px 16px rgba(17,17,19,.04);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
-body{margin:0;background:var(--bg);color:var(--txt);font-family:var(--ui);font-size:15px;line-height:1.55;
-  -webkit-font-smoothing:antialiased;
-  background-image:radial-gradient(90% 55% at 70% -10%,#16203A 0%,rgba(6,8,16,0) 60%)}
-:focus-visible{outline:2px solid var(--cy);outline-offset:2px;border-radius:6px}
-a{color:var(--cy);text-decoration:none}
-a:hover{text-decoration:underline;text-underline-offset:3px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px;border-radius:6px}
+a{color:inherit}
+.container{max-width:980px;margin:0 auto;padding:0 24px}
 
-.wrap{max-width:1240px;margin:0 auto;padding:0 28px 60px}
+/* ---------------- nav ---------------- */
+.nav{position:sticky;top:0;z-index:20;background:rgba(248,248,247,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav .container{display:flex;align-items:center;gap:22px;height:62px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-mark{width:30px;height:30px;border-radius:8px;background:var(--ink);color:#fff;display:grid;place-items:center;font-family:Georgia,serif;font-size:19px;line-height:1}
+.logo-text{font-weight:600;font-size:15.5px;letter-spacing:-.01em}
+.logo-by{font-size:13px;color:var(--ink-3);margin-left:2px}
+.nav .sp{flex:1}
+.nav a.link{font-size:14px;color:var(--ink-2);text-decoration:none}
+.nav a.link:hover{color:var(--ink)}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:500;color:var(--ink);text-decoration:none;
+  border:1px solid var(--line-2);background:var(--surface);border-radius:9px;padding:7px 12px}
+.btn-outline:hover{border-color:var(--ink-3)}
+@media (max-width:640px){.nav a.link,.logo-by{display:none}}
 
-/* ---------- top ---------- */
-.top{display:flex;align-items:center;gap:14px;padding:22px 0 0;flex-wrap:wrap}
-.brand{display:flex;align-items:center;gap:9px;font-family:var(--mo);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--txt3)}
-.brand i{width:7px;height:7px;border-radius:50%;background:var(--cy);box-shadow:0 0 11px var(--cy)}
-.top .sp{flex:1}
-.sibling{font-family:var(--mo);font-size:10.5px;letter-spacing:.08em;color:var(--txt2);border:1px solid var(--edge);border-radius:20px;padding:6px 12px}
-.sibling:hover{color:var(--txt);border-color:var(--edge2);text-decoration:none}
+/* ---------------- hero ---------------- */
+.hero{padding:72px 0 40px;text-align:center}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 12px 5px 6px;box-shadow:var(--shadow)}
+.pill b{font-weight:600;font-size:11.5px;color:#fff;background:var(--ink);border-radius:999px;padding:2px 8px}
+.hero h1{margin:22px auto 16px;max-width:16ch;font-size:clamp(38px,6vw,64px);line-height:1.02;letter-spacing:-.045em;font-weight:600;text-wrap:balance}
+.hero .sub{margin:0 auto;max-width:56ch;font-size:18px;color:var(--ink-2);line-height:1.55;text-wrap:balance}
+.trust{display:flex;justify-content:center;flex-wrap:wrap;gap:10px 26px;margin:28px 0 0;padding:0;list-style:none;font-size:14px;color:var(--ink-2)}
+.trust li{display:flex;align-items:center;gap:8px}
+.ico{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.trust .ico{width:16px;height:16px;color:var(--ink)}
 
-.hero{display:flex;align-items:flex-end;gap:28px;padding:30px 0 30px;flex-wrap:wrap;border-bottom:1px solid var(--edge);margin-bottom:28px}
-.hero h1{margin:0;font-size:clamp(40px,5.2vw,62px);font-weight:700;letter-spacing:-.04em;line-height:.95;display:flex;align-items:baseline;gap:.16em}
-.hero h1 b{font-family:var(--mo);font-weight:500;color:var(--cy);font-size:.78em;letter-spacing:0}
-.hero p{margin:0;flex:1;min-width:280px;max-width:52ch;font-size:16px;color:var(--txt2);padding-bottom:6px}
-.hero p em{font-style:normal;color:var(--txt)}
+/* ---------------- card ---------------- */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+.section-label{font-size:13px;font-weight:500;color:var(--ink-3);display:flex;align-items:center;justify-content:space-between;gap:12px}
 
-/* ---------- layout ---------- */
-.main{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);gap:32px;align-items:start}
-.left{position:sticky;top:20px;display:flex;flex-direction:column;gap:16px}
-@media (max-width:1000px){.main{grid-template-columns:1fr}.left{position:static}}
-
-.panel{background:var(--panel);border:1px solid var(--edge);border-radius:16px}
-.label{font-family:var(--mo);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--txt3);display:flex;justify-content:space-between;gap:10px}
-
-/* ---------- input ---------- */
-.input{padding:16px 18px 14px}
-textarea{width:100%;min-height:118px;resize:vertical;margin-top:10px;background:transparent;border:0;color:var(--txt);
-  font-family:var(--ui);font-size:17px;line-height:1.6;letter-spacing:-.005em;padding:0}
+/* ---------------- tool ---------------- */
+.tool{overflow:hidden}
+.tool-in{padding:22px 24px 18px}
+.tool-in label{display:block;font-size:13px;font-weight:500;color:var(--ink-3);margin-bottom:10px}
+textarea{width:100%;min-height:58px;resize:none;overflow:hidden;border:0;background:transparent;color:var(--ink);
+  font-family:var(--font);font-size:18px;line-height:1.6;letter-spacing:-.01em;padding:0}
 textarea:focus{outline:none}
-textarea::placeholder{color:var(--txt3)}
-.inbar{display:flex;align-items:center;gap:12px;border-top:1px solid var(--edge);padding-top:12px;margin-top:6px}
-.inbar .count{font-family:var(--mo);font-size:10.5px;color:var(--txt3);flex:1}
-.go{font-family:var(--ui);font-size:13px;font-weight:600;background:var(--cy);color:#061018;border:0;border-radius:10px;padding:9px 16px;cursor:pointer}
-.go:hover{background:#A6E6FA}
+textarea::placeholder{color:var(--ink-4)}
+.tool-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:16px}
+.examples{display:flex;flex-wrap:wrap;gap:6px;flex:1;align-items:center}
+.examples span{font-size:13px;color:var(--ink-3);margin-right:4px}
+.chip{font-family:var(--font);font-size:13px;color:var(--ink-2);background:var(--sunken);border:1px solid transparent;border-radius:8px;padding:5px 10px;cursor:pointer}
+.chip:hover{border-color:var(--line-2);color:var(--ink)}
+.btn{font-family:var(--font);display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500;color:#fff;background:var(--ink);border:0;border-radius:10px;padding:10px 16px;cursor:pointer}
+.btn:hover{background:#2A2A30}
+.btn .ico{width:16px;height:16px}
 
-.examples{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
-.examples span{font-family:var(--mo);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--txt3);margin-right:2px}
-.ex{font-family:var(--ui);font-size:12px;color:var(--txt2);background:var(--panel2);border:1px solid var(--edge);border-radius:20px;padding:5px 11px;cursor:pointer}
-.ex:hover{color:var(--txt);border-color:var(--edge2)}
+.tool-out{border-top:1px solid var(--line);background:linear-gradient(#FCFCFB,#FCFCFB);padding:22px 24px 22px}
+.marked{margin-top:12px;font-size:22px;line-height:2;letter-spacing:-.015em;color:var(--ink-2);white-space:pre-wrap;word-break:break-word}
+.marked:empty::before{content:"Your marked-up copy appears here.";color:var(--ink-4)}
+mark{background:transparent;color:var(--ink);cursor:pointer;border-radius:4px;padding:0 1px;
+  text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:7px;transition:background .15s}
+mark.dis{text-decoration-color:var(--dis)}
+mark.rev{text-decoration-color:var(--rev)}
+mark.neu{text-decoration-color:var(--ink-4);text-decoration-style:dotted}
+mark:hover,mark.hot{background:var(--sunken)}
+mark sup{display:inline-grid;place-items:center;min-width:18px;height:18px;padding:0 4px;margin-left:3px;border-radius:9px;
+  font-family:var(--mono);font-size:10.5px;font-weight:500;line-height:1;vertical-align:6px;text-decoration:none;color:#fff;background:var(--ink-3)}
+mark.dis sup{background:var(--dis)} mark.rev sup{background:var(--rev)}
+.discl{color:var(--ink-3)}
+.discl-tag{font-size:11.5px;font-weight:500;color:var(--ink-3);border:1px solid var(--line-2);border-radius:6px;padding:1px 6px;margin-right:6px;vertical-align:3px;letter-spacing:0}
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:16px;font-size:13px;color:var(--ink-3)}
+.legend span{display:flex;align-items:center;gap:7px}
+.dot{width:8px;height:8px;border-radius:50%;flex:none;background:var(--ink-4)}
+.dot.dis{background:var(--dis)} .dot.rev{background:var(--rev)}
+.dot.neu{background:transparent;border:1.5px solid var(--ink-4)}
 
-/* ---------- marked-up copy ---------- */
-.marked{padding:18px 20px 20px}
-.copy{margin-top:12px;font-size:21px;line-height:1.95;letter-spacing:-.012em;color:var(--txt2);word-break:break-word;white-space:pre-wrap}
-.copy:empty::before{content:"Your copy appears here, marked up.";color:var(--txt3)}
-mark.m{background:color-mix(in oklab,var(--c) 14%,transparent);color:var(--txt);border-radius:4px;padding:1px 3px;
-  text-decoration:underline;text-decoration-color:var(--c);text-decoration-thickness:2px;text-underline-offset:6px;cursor:pointer;
-  transition:background .15s}
-mark.m:hover,mark.m.hot{background:color-mix(in oklab,var(--c) 28%,transparent)}
-mark.m sup{font-family:var(--mo);font-size:10px;font-weight:700;color:#07090F;background:var(--c);border-radius:5px;
-  padding:1px 4px;margin-left:4px;vertical-align:4px;line-height:1;text-decoration:none;display:inline-block}
-mark.dis{--c:var(--dis)} mark.rev{--c:var(--rev)} mark.sf{--c:var(--sf)} mark.sub{--c:var(--sub)} mark.def{--c:var(--def)}
-.discl-mark{color:var(--txt3);background:rgba(255,255,255,.035);border-radius:4px;padding:1px 3px;border-bottom:1px dashed rgba(255,255,255,.2)}
-.discl-mark::before{content:"disclaimer";font-family:var(--mo);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--txt3);border:1px solid var(--edge2);border-radius:4px;padding:1px 5px;margin-right:6px;vertical-align:3px}
+/* ---------------- summary ---------------- */
+.summary{display:grid;grid-template-columns:repeat(4,1fr);margin-top:16px}
+.stat{padding:18px 22px;border-left:1px solid var(--line)}
+.stat:first-child{border-left:0}
+.stat .n{font-size:34px;font-weight:600;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.stat .l{display:flex;align-items:center;gap:7px;margin-top:8px;font-size:13.5px;color:var(--ink-2)}
+.stat .n.small{font-size:17px;letter-spacing:-.01em;line-height:34px;font-weight:600}
+@media (max-width:720px){.summary{grid-template-columns:1fr 1fr}.stat:nth-child(3){border-left:0}.stat:nth-child(n+3){border-top:1px solid var(--line)}}
+.clear-note{margin:14px 2px 0;font-size:14px;color:var(--ink-2)}
 
-.summary{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;padding-top:14px;border-top:1px solid var(--edge)}
-.pill{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--txt2);background:var(--panel2);border:1px solid var(--edge);border-radius:20px;padding:5px 11px}
-.pill i{width:8px;height:8px;border-radius:50%;background:var(--c)}
-.pill b{color:var(--txt);font-weight:600;font-variant-numeric:tabular-nums}
-.none{font-size:13px;color:var(--txt2);margin:14px 0 0;line-height:1.5}
-.none b{color:var(--txt);font-weight:600}
+/* ---------------- findings ---------------- */
+.results{margin-top:48px}
+.results-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:16px}
+.results-head h2{margin:0;font-size:24px;font-weight:600;letter-spacing:-.025em}
+.results-head span{font-size:14px;color:var(--ink-3)}
+.stack{display:flex;flex-direction:column;gap:12px}
 
-/* ---------- findings ---------- */
-.right{display:flex;flex-direction:column;gap:14px}
-.rhead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:0 2px}
-.rhead h2{margin:0;font-size:15px;font-weight:600;letter-spacing:-.01em}
+.note{display:flex;gap:14px;padding:16px 20px}
+.note .ico{color:var(--ink-2);margin-top:2px}
+.note p{margin:0;font-size:14.5px;color:var(--ink-2)}
+.note b{color:var(--ink);font-weight:600}
+.note code{display:block;margin-top:10px;font-family:var(--mono);font-size:12.5px;line-height:1.65;color:var(--ink);background:var(--sunken);border-radius:8px;padding:10px 12px}
+.note a{font-family:var(--mono);font-size:12.5px}
 
-.note{border:1px solid var(--edge2);border-radius:14px;padding:13px 16px;background:var(--panel2);font-size:13px;color:var(--txt2)}
-.note b{color:var(--txt);font-weight:600}
-.note .cite{font-family:var(--mo);font-size:11px;margin-top:6px;display:block}
-.note code{display:block;margin-top:8px;font-family:var(--mo);font-size:11.5px;line-height:1.6;color:var(--txt);background:rgba(255,255,255,.04);border-radius:8px;padding:8px 10px}
+.finding{padding:20px 22px;transition:border-color .15s,box-shadow .15s}
+.finding.hot{border-color:var(--line-2);box-shadow:0 1px 2px rgba(17,17,19,.05),0 8px 28px rgba(17,17,19,.08)}
+.f-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.f-num{font-family:var(--mono);font-size:12px;color:var(--ink-3);background:var(--sunken);border-radius:6px;padding:2px 7px}
+.f-kind{display:flex;align-items:center;gap:7px;font-size:14px;font-weight:500;color:var(--ink)}
+.f-cite{margin-left:auto;font-family:var(--mono);font-size:12.5px;color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--line-2)}
+.f-cite:hover{color:var(--ink);border-color:var(--ink)}
+.f-quote{margin:12px 0 4px;font-size:21px;font-weight:600;letter-spacing:-.02em;line-height:1.3}
+.f-rule{margin:0 0 14px;font-size:14px;color:var(--ink-3)}
+.f-body{display:grid;grid-template-columns:110px 1fr;gap:10px 18px;margin:0;padding-top:14px;border-top:1px solid var(--line);font-size:14.5px}
+.f-body dt{color:var(--ink-3);font-size:13.5px}
+.f-body dd{margin:0;color:var(--ink-2)}
+@media (max-width:560px){.f-body{grid-template-columns:1fr;gap:2px}.f-body dd{margin-bottom:10px}.f-cite{margin-left:0}}
+.f-try{display:flex;align-items:center;gap:14px;margin-top:16px;padding:12px 14px;background:var(--sunken);border-radius:12px}
+.f-try .k{font-size:12.5px;color:var(--ink-3);white-space:nowrap}
+.f-try q{flex:1;font-weight:500;color:var(--ink);quotes:"“" "”"}
+.copy{font-family:var(--font);font-size:13px;font-weight:500;color:var(--ink);background:var(--surface);border:1px solid var(--line-2);border-radius:8px;padding:5px 11px;cursor:pointer;white-space:nowrap}
+.copy:hover{border-color:var(--ink-3)}
+.f-change{margin-top:16px;padding:12px 14px;border-radius:12px;background:var(--sunken);font-size:14px;color:var(--ink-2)}
+.f-change b{color:var(--ink);font-weight:500}
+.f-hint{margin:8px 2px 0;font-size:12.5px;color:var(--ink-3)}
 
-.card{background:var(--panel);border:1px solid var(--edge);border-radius:16px;padding:16px 18px 16px;transition:border-color .15s,background .15s}
-.card.hot{border-color:color-mix(in oklab,var(--c) 55%,transparent);background:color-mix(in oklab,var(--c) 5%,var(--panel))}
-.card.dis{--c:var(--dis)} .card.rev{--c:var(--rev)} .card.sf{--c:var(--sf)} .card.sub{--c:var(--sub)} .card.def{--c:var(--def)}
-.chead{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.pin{font-family:var(--mo);font-size:10.5px;font-weight:700;color:#07090F;background:var(--c);border-radius:6px;padding:3px 7px}
-.tier{font-family:var(--mo);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--c);font-weight:500}
-.quote{margin:0 0 14px;font-size:20px;line-height:1.35;letter-spacing:-.015em;font-weight:600;color:var(--txt)}
-.quote::before{content:"“";color:var(--txt3)} .quote::after{content:"”";color:var(--txt3)}
+.reqs{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.reqs li{display:flex;align-items:center;gap:12px;padding:11px 14px;border-top:1px solid var(--line);font-size:14px;color:var(--ink-2)}
+.reqs li:first-child{border-top:0}
+.reqs li b{color:var(--ink);font-weight:500;min-width:130px}
+.reqs li .ico{width:16px;height:16px;color:var(--ink-3)}
+.reqs li a{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--ink-3);text-decoration:none;border-bottom:1px solid var(--line-2);white-space:nowrap}
+@media (max-width:560px){.reqs li{flex-wrap:wrap}.reqs li a{margin-left:28px}}
 
-dl{display:grid;grid-template-columns:96px 1fr;gap:9px 14px;margin:0;font-size:13px}
-dt{font-family:var(--mo);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--txt3);padding-top:3px}
-dd{margin:0;color:var(--txt2);line-height:1.5}
-dd .rule{font-family:var(--mo);font-size:12px;font-weight:500}
-dd .crit{display:block;color:var(--txt);margin-top:2px}
-dd .ex{all:unset;color:var(--txt2);font-style:italic}
+.empty{padding:34px;text-align:center;color:var(--ink-3)}
 
-.try{margin-top:14px;padding:12px 14px;border-radius:12px;background:var(--panel2);border:1px solid var(--edge)}
-.try .label{margin-bottom:6px}
-.tryrow{display:flex;align-items:center;gap:12px}
-.tryrow q{flex:1;font-size:15px;font-weight:600;color:var(--txt);quotes:"“" "”"}
-.copybtn{font-family:var(--mo);font-size:10.5px;letter-spacing:.06em;color:var(--txt2);background:transparent;border:1px solid var(--edge2);border-radius:8px;padding:5px 10px;cursor:pointer;white-space:nowrap}
-.copybtn:hover{color:var(--txt);border-color:var(--txt3)}
-.try small{display:block;margin-top:7px;font-size:11px;color:var(--txt3)}
-.norw{margin-top:14px;font-size:13px;color:var(--txt2);padding:11px 14px;border-radius:12px;border:1px dashed var(--edge2)}
-.norw b{color:var(--txt);font-weight:600}
+/* ---------------- how ---------------- */
+.how{margin-top:80px}
+.how h2,.limits h2{margin:0 0 6px;font-size:24px;font-weight:600;letter-spacing:-.025em}
+.how > p,.limits > p{margin:0 0 22px;color:var(--ink-2);max-width:62ch}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media (max-width:760px){.steps{grid-template-columns:1fr}}
+.step{padding:22px}
+.step .ic{width:40px;height:40px;border-radius:11px;background:var(--sunken);display:grid;place-items:center;color:var(--ink);margin-bottom:16px}
+.step h3{margin:0 0 6px;font-size:16px;font-weight:600;letter-spacing:-.01em}
+.step p{margin:0;font-size:14.5px;color:var(--ink-2)}
+.step a{color:var(--ink);text-underline-offset:3px}
 
-.reqs{list-style:none;margin:14px 0 0;padding:12px 14px;border-radius:12px;background:var(--panel2);border:1px solid var(--edge);display:grid;gap:9px}
-.reqs li{display:grid;grid-template-columns:18px 1fr;gap:8px;font-size:13px;color:var(--txt2)}
-.reqs li span:first-child{font-family:var(--mo);font-size:12px;line-height:1.45}
-.reqs li.ok span:first-child{color:var(--txt3)}
-.reqs li.todo span:first-child{color:var(--rev)}
-.reqs b{color:var(--txt);font-weight:600}
-.reqs a{font-family:var(--mo);font-size:11px}
+.limits{margin-top:64px}
+.limits ul{margin:0;padding:22px 26px;display:grid;grid-template-columns:1fr 1fr;gap:12px 32px;list-style:none}
+@media (max-width:760px){.limits ul{grid-template-columns:1fr}}
+.limits li{display:flex;gap:10px;font-size:14px;color:var(--ink-2)}
+.limits li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--ink-4);margin-top:9px;flex:none}
 
-.empty{padding:26px 22px;text-align:center;color:var(--txt3);font-size:13px}
-
-details.limits{background:var(--panel);border:1px solid var(--edge);border-radius:16px;padding:14px 18px}
-details.limits summary{cursor:pointer;font-size:13.5px;font-weight:600;color:var(--txt);list-style:none;display:flex;justify-content:space-between;gap:10px}
-details.limits summary::-webkit-details-marker{display:none}
-details.limits summary span{font-family:var(--mo);font-size:10.5px;color:var(--txt3);font-weight:400}
-details.limits ul{margin:12px 0 2px;padding-left:18px;display:grid;gap:7px;font-size:13px;color:var(--txt2)}
-
-footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--edge);display:flex;gap:24px;flex-wrap:wrap;font-size:12px;color:var(--txt3);line-height:1.6}
-footer p{margin:0;flex:1;min-width:260px;max-width:70ch}
-footer b{color:var(--txt2);font-weight:600}
-footer .links{display:flex;flex-direction:column;gap:4px;font-family:var(--mo);font-size:11px}
-.fail{padding:40px;text-align:center;color:var(--txt2);max-width:52ch;margin:60px auto}
-.fail code{color:var(--cy);font-family:var(--mo)}
+/* ---------------- footer ---------------- */
+footer{margin-top:80px;border-top:1px solid var(--line);padding:32px 0 48px;font-size:13.5px;color:var(--ink-3)}
+footer .container{display:flex;gap:40px;flex-wrap:wrap;justify-content:space-between}
+footer p{margin:0;max-width:60ch;line-height:1.65}
+footer b{color:var(--ink-2);font-weight:500}
+footer .links{display:flex;flex-direction:column;gap:8px}
+footer .links a{text-decoration:none;color:var(--ink-2)}
+footer .links a:hover{color:var(--ink)}
+.fail{max-width:52ch;margin:80px auto;text-align:center;color:var(--ink-2)}
+.fail code{font-family:var(--mono);color:var(--ink)}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="top">
-    <span class="brand"><i></i>Zee Palm Labs · open source</span>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+  <symbol id="i-github" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65S8.93 17.38 9 18v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol>
+  <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M7 21h10"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/><path d="m16 16 3-8 3 8c-1.7 1.3-4.3 1.3-6 0Z"/><path d="m2 16 3-8 3 8c-1.7 1.3-4.3 1.3-6 0Z"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></symbol>
+  <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3h6"/><path d="M10 3v6L5 18a2 2 0 0 0 1.7 3h10.6A2 2 0 0 0 19 18l-5-9V3"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+</svg>
+
+<nav class="nav">
+  <div class="container">
+    <a class="logo" href="#top"><span class="logo-mark">§</span><span class="logo-text">Claims Lab</span><span class="logo-by">by Zee Palm Labs</span></a>
     <span class="sp"></span>
-    <a class="sibling" href="https://github.com/Zee-Palm-LLC/zeepalm-dose-lab-" target="_blank" rel="noopener">Also from Labs: Dose Lab ↗</a>
+    <a class="link" href="#how">How it works</a>
+    <a class="link" href="#limits">Limits</a>
+    <a class="btn-outline" href="https://github.com/Zee-Palm-LLC/zeepalm-claims-lab" target="_blank" rel="noopener"><svg class="ico" style="width:16px;height:16px"><use href="#i-github"/></svg>Open source</a>
   </div>
+</nav>
 
-  <header class="hero">
-    <h1><b>§</b>Claims Lab</h1>
-    <p>Paste supplement marketing copy. See <em>exactly which rule</em> each claim triggers — and the paragraph of 21&nbsp;CFR&nbsp;101.93 it comes from. No scores. Every flag cites its source.</p>
-  </header>
+<main class="container" id="top">
+  <section class="hero">
+    <span class="pill"><b>Free</b>For supplement brands, founders and marketers</span>
+    <h1>Find the claims that cross the line.</h1>
+    <p class="sub">Paste your label or ad copy. See which wording FDA treats as a disease claim, the exact rule behind each one, and wording you can use instead.</p>
+    <ul class="trust">
+      <li><svg class="ico"><use href="#i-check"/></svg>Built on 21 CFR 101.93</li>
+      <li><svg class="ico"><use href="#i-check"/></svg>Tested against FDA’s own examples</li>
+      <li><svg class="ico"><use href="#i-check"/></svg>Runs in your browser</li>
+    </ul>
+  </section>
 
-  <div class="main" id="app">
-    <section class="left">
-      <div class="panel input">
-        <label class="label" for="copy"><span>Your label or ad copy</span><span>checked as you type</span></label>
-        <textarea id="copy" spellcheck="false" placeholder="e.g. Supports restful sleep. Treats insomnia and reduces anxiety."></textarea>
-        <div class="inbar">
-          <span class="count" id="count">—</span>
-          <button class="go" id="go" type="button">Check claims →</button>
+  <div id="app">
+    <section class="card tool" aria-label="Check your copy">
+      <div class="tool-in">
+        <label for="copy">Your label or ad copy</label>
+        <textarea id="copy" spellcheck="false" placeholder="Paste supplement marketing copy…"></textarea>
+        <div class="tool-bar">
+          <div class="examples" id="examples"><span>Try:</span></div>
+          <button class="btn" id="go" type="button">Check copy <svg class="ico"><use href="#i-arrow"/></svg></button>
         </div>
       </div>
-
-      <div class="examples" id="examples"><span>Try</span></div>
-
-      <div class="panel marked">
-        <div class="label"><span>Marked up</span><span id="sentences"></span></div>
-        <div class="copy" id="marked" aria-live="polite"></div>
-        <div class="summary" id="summary"></div>
+      <div class="tool-out">
+        <div class="section-label"><span>Marked up</span><span id="wc"></span></div>
+        <div class="marked" id="marked" aria-live="polite"></div>
+        <div class="legend">
+          <span><i class="dot dis"></i>Disease claim</span>
+          <span><i class="dot rev"></i>Needs review</span>
+          <span><i class="dot neu"></i>Other finding</span>
+        </div>
       </div>
     </section>
 
-    <section class="right" aria-label="Findings">
-      <div class="rhead"><h2 id="fhead">Findings</h2><span class="label" id="fsub"></span></div>
-      <div id="notes"></div>
-      <div id="cards"></div>
-      <details class="limits" id="limits"><summary>What this can’t check <span id="limitsN"></span></summary><ul id="limitsList"></ul></details>
+    <section class="card summary" id="summary" aria-label="Summary"></section>
+    <div id="clear"></div>
+
+    <section class="results" aria-label="Findings">
+      <div class="results-head"><h2 id="fhead">Findings</h2><span id="fsub"></span></div>
+      <div class="stack" id="notes"></div>
+      <div class="stack" id="cards" style="margin-top:12px"></div>
     </section>
   </div>
 
-  <footer>
-    <p><b>Automated pattern checks, not legal or regulatory advice.</b> Each finding maps wording to a paragraph of 21 CFR 101.93 or 21 U.S.C. 343(r)(6), using the criteria and examples in FDA’s Small Entity Compliance Guide. A claim with no flags has not been cleared — it simply didn’t match these rules. Suggested rewrites are templates, not regulatory determinations. Nothing you type leaves your browser.</p>
+  <section class="how" id="how">
+    <h2>How it works</h2>
+    <p>A dietary supplement can say it <em>supports</em> how the body works. It can’t say it treats, cures or prevents a disease. FDA defines where that line sits, and Claims Lab checks your wording against it.</p>
+    <div class="steps">
+      <div class="card step"><div class="ic"><svg class="ico"><use href="#i-file"/></svg></div>
+        <h3>Paste your copy</h3><p>Label text, ad copy, product pages. Each sentence is checked the moment you type.</p></div>
+      <div class="card step"><div class="ic"><svg class="ico"><use href="#i-scale"/></svg></div>
+        <h3>Rules, not guesses</h3><p>48 rules mapped to FDA’s ten disease-claim criteria, tested against the examples in FDA’s own <a href="https://www.fda.gov/regulatory-information/search-fda-guidance-documents/small-entity-compliance-guide-structurefunction-claims" target="_blank" rel="noopener">compliance guide</a>.</p></div>
+      <div class="card step"><div class="ic"><svg class="ico"><use href="#i-pen"/></svg></div>
+        <h3>Clear next steps</h3><p>Every finding links to its rule, explains why, and suggests structure/function wording where one exists.</p></div>
+    </div>
+  </section>
+
+  <section class="limits" id="limits">
+    <h2>What it can’t check</h2>
+    <p>No flags doesn’t mean cleared. These are automated pattern checks, not legal or regulatory advice.</p>
+    <ul class="card" id="limitsList"></ul>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <p><b>Claims Lab is an open-source tool from Zee Palm Labs.</b> Findings map wording to 21 CFR 101.93 and 21 U.S.C. 343(r)(6), using the criteria and examples in FDA’s Small Entity Compliance Guide. Suggested wording is a template, not a regulatory determination. Nothing you type leaves your browser.</p>
     <div class="links" id="sources"></div>
-  </footer>
-</div>
+  </div>
+</footer>
 
 <script type="module">
 import { check } from "./engine.js";
 
-const TIER = {
+const KIND = {
   disease:           { cls: "dis", label: "Disease claim" },
   review:            { cls: "rev", label: "Needs review" },
-  structureFunction: { cls: "sf",  label: "Structure/function claim" },
-  substantiation:    { cls: "sub", label: "Substantiation language" },
-  deficiency:        { cls: "def", label: "Nutrient-deficiency disease" },
+  structureFunction: { cls: "neu", label: "Structure/function claim" },
+  substantiation:    { cls: "neu", label: "Substantiation wording" },
+  deficiency:        { cls: "neu", label: "Nutrient-deficiency disease" },
 };
 const DEFAULT = "Supports restful sleep. Treats insomnia and reduces anxiety. Clinically proven to calm the mind. The natural alternative to sleeping pills.";
 const EXAMPLES = [
-  ["Treats insomnia", "Treats insomnia and reduces anxiety"],
-  ["Supports restful sleep", "Supports restful sleep"],
-  ["FDA’s own example", "Supports the body's ability to resist infection"],
+  ["Treats insomnia", "Treats insomnia and reduces anxiety."],
   ["Nature’s Ozempic", "Nature's Ozempic. Curbs cravings and supports healthy weight loss."],
+  ["Immune support", "Supports the body's ability to resist infection."],
   ["Label with disclaimer", "Supports healthy energy levels. Supports mental focus. This statement has not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease."],
-  ["Lower cholesterol", "Clinically proven to lower cholesterol naturally."],
-  ["Prevents scurvy", "Our vitamin C helps prevent scurvy."],
 ];
 
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-const pad = (n) => String(n).padStart(2, "0");
+const icon = (id, style = "") => `<svg class="ico" style="${style}"><use href="#${id}"/></svg>`;
 
 let rules;
 try {
@@ -235,171 +310,147 @@ try {
   if (!res.ok) throw new Error("data/rules.json returned " + res.status);
   rules = await res.json();
 } catch (err) {
-  $("app").outerHTML = `<div class="fail"><b>Could not load the rules.</b><br><br>` +
+  $("app").outerHTML = `<div class="fail"><p><b>Could not load the rules.</b></p><p>` +
     (location.protocol === "file:"
-      ? `This page reads <code>data/rules.json</code>, which browsers block on <code>file://</code>. Serve the folder instead:<br><br><code>python3 -m http.server</code>`
-      : esc(err.message)) + `</div>`;
+      ? `This page reads <code>data/rules.json</code>, which browsers block when a file is opened directly. Run <code>python3 -m http.server</code> in this folder instead.`
+      : esc(err.message)) + `</p></div>`;
   throw err;
 }
 
-// ---------- static bits ----------
 $("sources").innerHTML = Object.values(rules.sources)
-  .map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.label)} ↗</a>`).join("");
+  .map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.label)} ↗</a>`).join("") +
+  `<a href="https://github.com/Zee-Palm-LLC/zeepalm-claims-lab" target="_blank" rel="noopener">Source code ↗</a>`;
 $("limitsList").innerHTML = rules.notChecked.map(t => `<li>${esc(t)}</li>`).join("");
-$("limitsN").textContent = rules.notChecked.length + " things";
+
 for (const [label, text] of EXAMPLES) {
   const b = document.createElement("button");
-  b.className = "ex"; b.type = "button"; b.textContent = label;
-  b.addEventListener("click", () => { $("copy").value = text; grow(); run(); $("copy").focus(); });
+  b.className = "chip"; b.type = "button"; b.textContent = label;
+  b.addEventListener("click", () => { $("copy").value = text; grow(); run(); });
   $("examples").appendChild(b);
 }
 
-// ---------- render ----------
-function ruleLink(c) {
-  return `<a class="rule" href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.cite)} ↗</a>`;
-}
-
+// ---------------- render ----------------
 function renderMarked(text, result) {
-  const ranges = result.findings.map(f => ({ s: f.phrase.start, e: f.phrase.end, f }))
-    .sort((a, b) => a.s - b.s);
-  // Phrases can touch; never let two marks overlap.
+  const ranges = result.findings.map(f => ({ s: f.phrase.start, e: f.phrase.end, f })).sort((a, b) => a.s - b.s);
   for (let i = 1; i < ranges.length; i++) if (ranges[i].s < ranges[i - 1].e) ranges[i].s = ranges[i - 1].e;
-  // The disclaimer is two sentences; show it as one labelled block.
+
   const discl = [];
   for (const [s, e] of [...result.disclaimer.ranges].sort((x, y) => x[0] - y[0])) {
     const last = discl[discl.length - 1];
-    if (last && !text.slice(last.e, s).trim()) last.e = Math.max(last.e, e);
-    else discl.push({ s, e });
+    if (last && !text.slice(last.e, s).trim()) last.e = Math.max(last.e, e); else discl.push({ s, e });
   }
-
-  let out = "", at = 0;
   const plain = (a, b) => {
-    // Show the disclaimer, but set apart: it is excluded from the checks.
-    let chunk = "", i = a;
+    let out = "", i = a;
     for (const d of discl) {
       if (d.e <= i || d.s >= b) continue;
-      chunk += esc(text.slice(i, Math.max(i, d.s)));
-      chunk += `<span class="discl-mark" title="Required disclaimer — its own wording is not checked">${esc(text.slice(Math.max(i, d.s), Math.min(b, d.e)))}</span>`;
+      out += esc(text.slice(i, Math.max(i, d.s)));
+      out += `<span class="discl"><span class="discl-tag">Disclaimer</span>${esc(text.slice(Math.max(i, d.s), Math.min(b, d.e)))}</span>`;
       i = Math.min(b, d.e);
     }
-    return chunk + esc(text.slice(i, b));
+    return out + esc(text.slice(i, b));
   };
+
+  let html = "", at = 0;
   for (const r of ranges) {
     if (r.e <= r.s) continue;
-    out += plain(at, r.s);
-    const t = TIER[r.f.tier];
-    out += `<mark class="m ${t.cls}" data-n="${r.f.n}" title="${esc(t.label)} — ${esc(r.f.criterion.cite)}">${esc(text.slice(r.s, r.e))}<sup>${pad(r.f.n)}</sup></mark>`;
+    html += plain(at, r.s);
+    const k = KIND[r.f.tier];
+    html += `<mark class="${k.cls}" data-n="${r.f.n}" title="${esc(k.label)} · ${esc(r.f.criterion.cite)}">${esc(text.slice(r.s, r.e))}<sup>${r.f.n}</sup></mark>`;
     at = r.e;
   }
-  out += plain(at, text.length);
-  $("marked").innerHTML = text.trim() ? out : "";
+  html += plain(at, text.length);
+  $("marked").innerHTML = text.trim() ? html : "";
 }
 
-function renderSummary(result) {
+function renderSummary(result, hasText) {
   const c = result.counts;
-  const order = ["disease", "review", "deficiency", "substantiation", "structureFunction"];
-  const noun = { disease: ["disease claim", "disease claims"], review: ["needs review", "need review"],
-    deficiency: ["deficiency disease", "deficiency diseases"], substantiation: ["substantiation phrase", "substantiation phrases"],
-    structureFunction: ["structure/function claim", "structure/function claims"] };
-  let html = order.filter(k => c[k]).map(k =>
-    `<span class="pill" style="--c:var(--${TIER[k].cls})"><i></i><b>${c[k]}</b> ${noun[k][c[k] === 1 ? 0 : 1]}</span>`).join("");
+  const other = c.structureFunction + c.substantiation + c.deficiency;
   const d = result.disclaimer;
-  const dl = { found: "Disclaimer found", incomplete: "Disclaimer incomplete", absent: "No disclaimer in this text" }[d.status];
-  html += `<span class="pill" style="--c:${d.status === "found" ? "var(--txt3)" : "var(--rev)"}"><i></i>${dl}${d.form ? ` · ${d.form}` : ""}</span>`;
-  $("summary").innerHTML = html;
-
-  const serious = c.disease + c.review;
-  const existing = document.querySelector(".none");
-  if (existing) existing.remove();
-  if ($("copy").value.trim() && !serious) {
-    $("summary").insertAdjacentHTML("afterend",
-      `<p class="none"><b>No disease-claim patterns matched these rules.</b> That isn’t a clearance — see what this can’t check.</p>`);
-  }
+  const disclText = { found: "Present", incomplete: "Incomplete", absent: "Not found" }[d.status];
+  $("summary").innerHTML = `
+    <div class="stat"><div class="n">${c.disease}</div><div class="l"><i class="dot dis"></i>Disease claim${c.disease === 1 ? "" : "s"}</div></div>
+    <div class="stat"><div class="n">${c.review}</div><div class="l"><i class="dot rev"></i>Need${c.review === 1 ? "s" : ""} review</div></div>
+    <div class="stat"><div class="n">${other}</div><div class="l"><i class="dot neu"></i>Other finding${other === 1 ? "" : "s"}</div></div>
+    <div class="stat"><div class="n small">${disclText}</div><div class="l">FDA disclaimer${d.form ? ` · ${d.form}` : ""}</div></div>`;
+  $("clear").innerHTML = hasText && !(c.disease + c.review)
+    ? `<p class="clear-note">No disease-claim patterns matched these rules — that isn’t a clearance. <a href="#limits">See what it can’t check.</a></p>` : "";
 }
 
-function reqs(result) {
+function ruleLink(c, cls = "f-cite") {
+  return `<a class="${cls}" href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.cite)}</a>`;
+}
+
+function requirements(result) {
   const d = result.disclaimer.status;
-  const discl = { found: ["ok", "Found in the text you pasted"], incomplete: ["todo", "Only part of it is in the text you pasted"],
-    absent: ["todo", "Not found in the text you pasted"] }[d];
+  const discl = { found: "In the text you pasted", incomplete: "Only partly in the text you pasted", absent: "Not in the text you pasted" }[d];
   return `<ul class="reqs">
-    <li class="ok"><span>·</span><span><b>Wording</b> — no disease-claim pattern matched these rules</span></li>
-    <li class="todo"><span>!</span><span><b>Substantiation</b> — required before the claim is made. ${ruleLink(rules.criteria.r6B)}</span></li>
-    <li class="${discl[0]}"><span>${discl[0] === "ok" ? "·" : "!"}</span><span><b>Disclaimer</b> — ${discl[1]}. ${ruleLink(rules.criteria.c)}</span></li>
-    <li class="todo"><span>!</span><span><b>FDA notification</b> — within 30 days of first marketing. ${ruleLink(rules.criteria.a)}</span></li>
+    <li>${icon("i-flask")}<b>Substantiation</b><span>Needed before the claim is made</span>${ruleLink(rules.criteria.r6B, "")}</li>
+    <li>${icon("i-info")}<b>Disclaimer</b><span>${discl}</span>${ruleLink(rules.criteria.c, "")}</li>
+    <li>${icon("i-send")}<b>FDA notification</b><span>Within 30 days of first marketing</span>${ruleLink(rules.criteria.a, "")}</li>
   </ul>`;
 }
 
-function renderCards(result) {
-  const box = $("cards");
+function renderFindings(result, hasText) {
   const n = result.findings.length;
   $("fhead").textContent = n ? `${n} finding${n === 1 ? "" : "s"}` : "Findings";
-  $("fsub").textContent = n ? "in the order they appear" : "";
+  $("fsub").textContent = n ? "In the order they appear" : "";
 
-  if (!$("copy").value.trim()) { box.innerHTML = `<div class="panel empty">Paste some copy to see findings.</div>`; return; }
-  if (!n) { box.innerHTML = `<div class="panel empty">Nothing in this text matched a rule.</div>`; return; }
+  $("notes").innerHTML = result.disclaimer.notes.map(x => `
+    <div class="card note">${icon("i-info")}<div><p><b>${x.kind === "plural" ? "Use the plural disclaimer." : "A disclaimer can’t fix a disease claim."}</b> ${esc(x.text)}</p>
+      ${x.expected ? `<code>${esc(x.expected)}</code>` : ""}<p style="margin-top:8px">${ruleLink(x.criterion, "")}</p></div></div>`).join("");
 
-  box.innerHTML = result.findings.map(f => {
-    const t = TIER[f.tier];
-    let dl = `<dt>Rule</dt><dd>${ruleLink(f.criterion)}<span class="crit">${esc(f.criterion.text)}</span></dd>`;
-    if (f.secondary) dl += `<dt>Also</dt><dd>${ruleLink(f.secondary)}<span class="crit">${esc(f.secondary.text)}</span></dd>`;
-    dl += `<dt>Why</dt><dd>${esc(f.reason)}</dd>`;
-    if (f.fdaExample) dl += `<dt>FDA’s example</dt><dd><span class="ex">${esc(f.fdaExample)}</span></dd>`;
+  if (!hasText) { $("cards").innerHTML = `<div class="card empty">Paste some copy above to see findings.</div>`; return; }
+  if (!n) { $("cards").innerHTML = `<div class="card empty">Nothing in this copy matched a rule.</div>`; return; }
+
+  $("cards").innerHTML = result.findings.map(f => {
+    const k = KIND[f.tier];
+    let body = `<dt>Why</dt><dd>${esc(f.reason)}</dd>`;
+    if (f.secondary) body += `<dt>Also applies</dt><dd>${ruleLink(f.secondary, "")} — ${esc(f.secondary.text)}</dd>`;
+    if (f.fdaExample) body += `<dt>FDA’s example</dt><dd>${esc(f.fdaExample)}</dd>`;
 
     let tail = "";
-    if (f.tier === "structureFunction") tail = reqs(result);
-    else if (f.rewrite) tail = `<div class="try"><div class="label"><span>Try instead</span></div>
-      <div class="tryrow"><q>${esc(f.rewrite)}</q><button class="copybtn" type="button" data-copy="${esc(f.rewrite)}">Copy</button></div>
-      <small>Suggested rewrite — not a regulatory determination.</small></div>`;
-    else if (f.noRewrite) tail = `<div class="norw"><b>What to change.</b> ${esc(f.noRewrite)}</div>`;
+    if (f.tier === "structureFunction") tail = requirements(result);
+    else if (f.rewrite) tail = `<div class="f-try"><span class="k">Try instead</span><q>${esc(f.rewrite)}</q>
+        <button class="copy" type="button" data-copy="${esc(f.rewrite)}">Copy</button></div>
+      <p class="f-hint">Suggested wording — not a regulatory determination.</p>`;
+    else if (f.noRewrite) tail = `<div class="f-change"><b>What to change:</b> ${esc(f.noRewrite)}</div>`;
 
-    return `<article class="card ${t.cls}" id="f-${f.n}" data-n="${f.n}">
-      <div class="chead"><span class="pin">${pad(f.n)}</span><span class="tier">${esc(t.label)}</span></div>
-      <p class="quote">${esc(f.phrase.text)}</p>
-      <dl>${dl}</dl>${tail}
+    return `<article class="card finding" id="f-${f.n}" data-n="${f.n}">
+      <div class="f-head"><span class="f-num">${f.n}</span><span class="f-kind"><i class="dot ${k.cls}"></i>${esc(k.label)}</span>${ruleLink(f.criterion)}</div>
+      <p class="f-quote">“${esc(f.phrase.text)}”</p>
+      <p class="f-rule">${esc(f.criterion.text)}</p>
+      <dl class="f-body">${body}</dl>${tail}
     </article>`;
   }).join("");
 }
 
-function renderNotes(result) {
-  $("notes").innerHTML = result.disclaimer.notes.map(n =>
-    `<div class="note"><b>${n.kind === "plural" ? "Use the plural disclaimer." : "The disclaimer can’t fix a disease claim."}</b> ${esc(n.text)}` +
-    (n.expected ? `<code>${esc(n.expected)}</code>` : "") +
-    `<span class="cite">${ruleLink(n.criterion)}</span></div>`).join("");
-}
-
 function run() {
   const text = $("copy").value;
+  const hasText = !!text.trim();
   const result = check(text, rules);
-  const words = text.trim() ? text.trim().split(/\s+/).length : 0;
-  $("count").textContent = words ? `${words} word${words === 1 ? "" : "s"} · checked locally` : "—";
+  const words = hasText ? text.trim().split(/\s+/).length : 0;
+  $("wc").textContent = words ? `${words} word${words === 1 ? "" : "s"}` : "";
   renderMarked(text, result);
-  renderSummary(result);
-  renderNotes(result);
-  renderCards(result);
+  renderSummary(result, hasText);
+  renderFindings(result, hasText);
 }
 
-// ---------- interaction ----------
+// ---------------- interaction ----------------
+function grow() { const t = $("copy"); t.style.height = "auto"; t.style.height = t.scrollHeight + "px"; }
 let timer;
-const grow = () => { const t = $("copy"); t.style.height = "auto"; t.style.height = t.scrollHeight + "px"; };
-$("copy").addEventListener("input", () => { grow(); clearTimeout(timer); timer = setTimeout(run, 160); });
-$("go").addEventListener("click", run);
+$("copy").addEventListener("input", () => { grow(); clearTimeout(timer); timer = setTimeout(run, 150); });
+$("go").addEventListener("click", () => { run(); $("cards").scrollIntoView({ block: "start" }); });
+addEventListener("resize", grow);
 
-const link = (n, on) => {
-  document.querySelectorAll(`[data-n="${n}"]`).forEach(el => el.classList.toggle("hot", on));
-};
-document.addEventListener("mouseover", e => {
-  const el = e.target.closest("[data-n]"); if (el) link(el.dataset.n, true);
-});
-document.addEventListener("mouseout", e => {
-  const el = e.target.closest("[data-n]"); if (el) link(el.dataset.n, false);
-});
+const hot = (n, on) => document.querySelectorAll(`[data-n="${n}"]`).forEach(el => el.classList.toggle("hot", on));
+document.addEventListener("mouseover", e => { const el = e.target.closest("[data-n]"); if (el) hot(el.dataset.n, true); });
+document.addEventListener("mouseout", e => { const el = e.target.closest("[data-n]"); if (el) hot(el.dataset.n, false); });
 $("marked").addEventListener("click", e => {
   const m = e.target.closest("mark[data-n]"); if (!m) return;
-  const card = $("f-" + m.dataset.n);
-  if (card) card.scrollIntoView({ block: "center" });
+  $("f-" + m.dataset.n)?.scrollIntoView({ block: "center" });
 });
 $("cards").addEventListener("click", async e => {
-  const b = e.target.closest(".copybtn"); if (!b) return;
+  const b = e.target.closest(".copy"); if (!b) return;
   try { await navigator.clipboard.writeText(b.dataset.copy); b.textContent = "Copied"; }
   catch { b.textContent = "Select to copy"; }
   setTimeout(() => { b.textContent = "Copy"; }, 1400);
